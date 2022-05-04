@@ -3,6 +3,7 @@ export class Input{
         this.keys =[];
         this.touchY = '';
         this.touchTreshhold = 30;
+
         window.addEventListener('keydown', e => {
             if((e.key === 'ArrowDown' ||
             e.key === 'ArrowUp' ||
@@ -38,7 +39,9 @@ export class Input{
             console.log(this.keys);
             this.keys.splice(this.keys.indexOf('swipeUp'), 1);
             this.keys.splice(this.keys.indexOf('swipeDown'), 1);
-        });
+        }); 
+
+        
     }
 
 }

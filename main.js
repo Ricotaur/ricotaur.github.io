@@ -80,4 +80,5 @@ window.addEventListener('load', function() {
         game.displayScore(ctx);
     }
     animate();
+    
 });

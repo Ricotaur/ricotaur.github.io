@@ -1,8 +1,9 @@
 const states ={
     SITTING: 0,
-    RUNNING: 1,
+    RUNNINGR: 1,
     JUMPING: 2,
     FALLING: 3,
+    RUNNINGL: 4,
 }
 
 class State{
@@ -23,15 +24,21 @@ export class Sitting extends State{
     }
 
     handleInput(input){
-        if(input.includes('ArrowLeft') || input.includes('ArrowRight')){
-            this.player.setState(states.RUNNING, 2);
+        if(input.includes('ArrowRight')){
+            this.player.setState(states.RUNNINGR, 2);
+        }
+        else if(input.includes('ArrowLeft')){
+            this.player.setState(states.RUNNINGL, 0);
+        }
+        else if (input.includes('ArrowUp') || input.includes('swipeUp')){
+            this.player.setState(states.JUMPING, 0);
         }
     }
 }
-//Move---------------------------------------------------------------
-export class Running extends State{
+//Move Rightt---------------------------------------------------------------
+export class RunningR extends State{
     constructor(player){
-        super('RUNNING');
+        super('RUNNINGR');
         this.player = player;
     }
     enter(){
@@ -46,6 +53,33 @@ export class Running extends State{
         }
         else if (input.includes('ArrowUp') || input.includes('swipeUp')){
             this.player.setState(states.JUMPING, 0);
+        }
+        else if(input.includes('ArrowLeft')){
+            this.player.setState(states.RUNNINGL, 0);
+        }
+        
+    }
+}
+export class RunningL extends State{
+    constructor(player){
+        super('RUNNINGL');
+        this.player = player;
+    }
+    enter(){
+        this.player.frameX = 0;
+        this.player.frameY = 2;
+        this.player.maxFrame = 3;
+    }
+
+    handleInput(input){
+        if(input.includes('ArrowDown') || input.includes('swipeDown')){
+            this.player.setState(states.SITTING, 0);
+        }
+        else if (input.includes('ArrowUp') || input.includes('swipeUp')){
+            this.player.setState(states.JUMPING, 0);
+        }
+        if(input.includes('ArrowRight')){
+            this.player.setState(states.RUNNINGR, 2);
         }
     }
 }
@@ -82,7 +116,7 @@ export class Falling extends State{
 
     handleInput(){
         if(this.player.onGround()){
-            this.player.setState(states.RUNNING, 2);
+            this.player.setState(states.SITTING, 0);
         }
     }
 }
