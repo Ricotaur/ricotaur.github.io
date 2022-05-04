@@ -22,7 +22,7 @@ window.addEventListener('load', function() {
 
             this.obstacles = [];
             this.obstacleTimer = 0;
-            this.obstacleInterval = 1000;
+            this.obstacleInterval = 3000;
 
             this.score = 0;
         }
@@ -51,14 +51,18 @@ window.addEventListener('load', function() {
             });
         }
         addObstacle(){
-            if(this.speed > 0 && Math.random() < 0.5){this.obstacles.push(new GroundObstacle(this));}
-            this.obstacles.push(new FlyingObstacle(this));
-            //console.log(this.obstacles);
+            if(this.speed > 0 && Math.random() < 0.5){
+                this.obstacles.push(new GroundObstacle(this));
+            }
+            else if(this.speed > 0 && Math.random() > 0.5){
+                this.obstacles.push(new FlyingObstacle(this));
+            }
+         
         }
         displayScore(context){
-            context.fillStyle = 'black';
+            context.fillStyle = 'white';
             context.font = '40px Arial';
-            context.fillText('Score: ' + this.score, 20, 50);
+            context.fillText('Score: ' + this.score, 20, 40);
         }
     }
 

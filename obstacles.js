@@ -33,13 +33,13 @@ export class FlyingObstacle extends Obstacle{
         super();
         this.game = game;
         this.width = 60;
-        this.height = 44;
+        this.height = 130;
         this.x = this.game.width;
-        this.y = Math.random() * this.game.height * 0.5;
-        this.speedX = 1;
+        this.y = 63;
+        this.speedX = 0;
         this.speedY = 0;
-        this.maxFrame = 5;
-        this.image = document.getElementById('enemy_fly');
+        this.maxFrame = 3;
+        this.image = document.getElementById('ceil_Obst');
     }
     update(deltaTime){
         super.update(deltaTime);
@@ -51,13 +51,13 @@ export class GroundObstacle extends Obstacle{
         super();
         this.game = game;
         this.width = 60;
-        this.height = 87;
+        this.height = 200;
         this.x = this.game.width;
         this.y = this.game.height - this.height - this.game.groundMargin;
         this.speedX = 0;
         this.speedY = 0;
-        this.maxFrame = 1;
-        this.image = document.getElementById('enemy_plant');
+        this.maxFrame = 3;
+        this.image = document.getElementById('ground_Obst');
     }
 
 }

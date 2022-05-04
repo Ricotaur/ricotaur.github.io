@@ -18,8 +18,8 @@ export class Sitting extends State{
     }
     enter(){
         this.player.frameX = 0;
-        this.player.frameY = 5;
-        this.player.maxFrame = 4;
+        this.player.frameY = 0;
+        this.player.maxFrame = 3;
     }
 
     handleInput(input){
@@ -36,8 +36,8 @@ export class Running extends State{
     }
     enter(){
         this.player.frameX = 0;
-        this.player.frameY = 3;
-        this.player.maxFrame = 8;
+        this.player.frameY = 1;
+        this.player.maxFrame = 3;
     }
 
     handleInput(input){
@@ -45,7 +45,7 @@ export class Running extends State{
             this.player.setState(states.SITTING, 0);
         }
         else if (input.includes('ArrowUp') || input.includes('swipeUp')){
-            this.player.setState(states.JUMPING, 2);
+            this.player.setState(states.JUMPING, 0);
         }
     }
 }
@@ -57,14 +57,14 @@ export class Jumping extends State{
     }
     enter(){
         this.player.frameX = 0;
-        if(this.player.onGround()){this.player.vy -= 10;}
-        this.player.frameY = 1;
-        this.player.maxFrame = 6;
+        if(this.player.onGround()){this.player.vy -= 12;}
+        this.player.frameY = 3;
+        this.player.maxFrame = 3;
     }
 
     handleInput(){
         if(this.player.vy > this.player.gravity){
-            this.player.setState(states.FALLING, 2);
+            this.player.setState(states.FALLING, 0);
         }
     }
 }
@@ -76,8 +76,8 @@ export class Falling extends State{
     }
     enter(){
         this.player.frameX = 0;
-        this.player.frameY = 2;
-        this.player.maxFrame = 6;
+        this.player.frameY = 4;
+        this.player.maxFrame = 3;
     }
 
     handleInput(){
