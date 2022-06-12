@@ -35,13 +35,11 @@ export class Input{
             if(swipeDistance < -this.touchTreshhold && this.keys.indexOf('swipeUp') === -1){ this.keys.push('swipeUp');}
             else if(swipeDistance > this.touchTreshhold && this.keys.indexOf('swipeDown') === -1){ this.keys.push('swipeDown');}
         });
+
         window.addEventListener('touchend', e => {
             console.log(this.keys);
             this.keys.splice(this.keys.indexOf('swipeUp'), 1);
             this.keys.splice(this.keys.indexOf('swipeDown'), 1);
         }); 
-
-        
     }
-
 }

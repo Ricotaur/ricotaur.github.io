@@ -27,6 +27,7 @@ export class Player{
         this.currentState.enter();
     }
     update(input, deltaTime){
+        this.checkCollision();
         this.currentState.handleInput(input);
         //links,rechts Bewegung
         this.x += this.speed;
@@ -63,5 +64,18 @@ export class Player{
         this.game.speed = speed;
         this.currentState.enter();
     }
-
+    checkCollision(){
+        this.game.obstacles.forEach(obstacle => {
+            if( 
+                obstacle.x < this.x + this.width &&
+                obstacle.x + obstacle.width > this.x &&
+                obstacle.y < this.y + this.height &&
+                obstacle.y + obstacle.height > this.y 
+            ){
+                console.log("collision");
+            }
+            else{ }
+    });
+    
+ }
 }
