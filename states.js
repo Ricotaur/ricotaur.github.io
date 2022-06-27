@@ -106,6 +106,9 @@ export class Jumping extends State{
         if(input.includes('swipeTap')){
             this.player.setState(states.HOLDING, 0);
         }
+        if(input.includes('ArrowRight') || input.includes('swipeRight')){
+            this.player.setState(states.FLYINGR, 8);
+        }
         else if(this.player.vy > this.player.gravity){
             this.player.setState(states.FALLING, 0);
         }
@@ -128,6 +131,9 @@ export class Falling extends State{
     handleInput(input){
         if(input.includes('swipeTap')){
             this.player.setState(states.HOLDING, 0);
+        }
+        if(input.includes('ArrowRight') || input.includes('swipeRight')){
+            this.player.setState(states.FLYINGR, 8);
         }
         else if(this.player.onGround()){
             this.player.setState(states.SITTING, 0);
@@ -170,6 +176,8 @@ export class FlyingR extends State{
         this.player.frameX = 0;
         this.player.frameY = 3;
         this.player.maxFrame = 3;
+        this.player.vy = 0;
+        this.player.gravity = 0;
         this.player.rotation = 90;
     }
 

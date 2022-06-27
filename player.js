@@ -52,7 +52,7 @@ export class Player{
         else{ if(!isNaN(deltaTime)){this.frameTimer += deltaTime;}}
     }
     draw(context){
-        context.strokeSyle = 'white';
+        context.strokeStyle = 'black';
         context.strokeRect(this.x, this.y, this.width, this.height);
         context.save()
         context.translate(this.x + this.width / 2, this.y + this.height / 2);
@@ -71,7 +71,7 @@ export class Player{
         this.game.speed = speed;
         this.currentState.enter();
     }
-    checkCollision(){
+    checkCollision(context){
         this.game.obstacles.forEach(obstacle => {
             if( 
                 obstacle.x < this.x + this.width &&
@@ -79,7 +79,9 @@ export class Player{
                 obstacle.y < this.y + this.height &&
                 obstacle.y + obstacle.height > this.y 
             ){
-                console.log("collision");
+                document.getElementById("resetText").innerHTML = "You crashed, sadly. Game will reload";
+                this.game.speed = 0;
+                setTimeout(() => { window.location.reload(); }, 2000);
             }
             else{ }
     });

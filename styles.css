@@ -15,3 +15,14 @@
 #player, #layer1, #layer2, #layer3, #layer4, #layer5, #ceil_Obst, #ground_Obst{
     display: none;
 }
+#resetText{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    color: red;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    z-index: 1;
+}
