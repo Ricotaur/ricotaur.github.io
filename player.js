@@ -1,4 +1,4 @@
-import { Sitting, RunningR, Jumping, Falling, RunningL } from './states.js';
+import { Sitting, RunningR, Jumping, Falling, RunningL, Holding, FlyingR } from './states.js';
 
 export class Player{
     constructor(game){
@@ -18,11 +18,12 @@ export class Player{
         this.fps = 20;
         this.frameInterval = 1000 / this.fps;
         this.frameTimer = 0;
+        this.rotation = 0;
 
         this.speed = 0;
         this.maxSpeed = 5;
 
-        this.states = [new Sitting(this), new RunningR(this), new Jumping(this), new Falling(this), new RunningL(this)];
+        this.states = [new Sitting(this), new RunningR(this), new Jumping(this), new Falling(this), new RunningL(this), new Holding(this), new FlyingR(this)];
         this.currentState = this.states[0];
         this.currentState.enter();
     }
@@ -53,8 +54,14 @@ export class Player{
     draw(context){
         context.strokeSyle = 'white';
         context.strokeRect(this.x, this.y, this.width, this.height);
+        context.save()
+        context.translate(this.x + this.width / 2, this.y + this.height / 2);
+        context.rotate(this.rotation * Math.PI / 180);
+        context.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
+        
         context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height,
         this.width, this.height, this.x, this.y, this.width, this.height);
+        context.restore();
     }
     onGround(){
         return this.y >= this.game.height - this.height - this.game.groundMargin;

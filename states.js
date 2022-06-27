@@ -4,6 +4,8 @@ const states ={
     JUMPING: 2,
     FALLING: 3,
     RUNNINGL: 4,
+    HOLDING : 5,
+    FLYINGR : 6,
 }
 
 class State{
@@ -21,13 +23,14 @@ export class Sitting extends State{
         this.player.frameX = 0;
         this.player.frameY = 0;
         this.player.maxFrame = 3;
+        this.player.rotation = 0;
     }
 
     handleInput(input){
-        if(input.includes('ArrowRight')){
+        if(input.includes('ArrowRight')|| input.includes('swipeRight')){
             this.player.setState(states.RUNNINGR, 2);
         }
-        else if(input.includes('ArrowLeft')){
+        else if(input.includes('ArrowLeft')|| input.includes('swipeLeft')){
             this.player.setState(states.RUNNINGL, 0);
         }
         else if (input.includes('ArrowUp') || input.includes('swipeUp')){
@@ -45,6 +48,7 @@ export class RunningR extends State{
         this.player.frameX = 0;
         this.player.frameY = 1;
         this.player.maxFrame = 3;
+        this.player.rotation = 0;
     }
 
     handleInput(input){
@@ -54,7 +58,7 @@ export class RunningR extends State{
         else if (input.includes('ArrowUp') || input.includes('swipeUp')){
             this.player.setState(states.JUMPING, 0);
         }
-        else if(input.includes('ArrowLeft')){
+        else if(input.includes('ArrowLeft')|| input.includes('swipeLeft')){
             this.player.setState(states.RUNNINGL, 0);
         }
         
@@ -69,6 +73,7 @@ export class RunningL extends State{
         this.player.frameX = 0;
         this.player.frameY = 2;
         this.player.maxFrame = 3;
+        this.player.rotation = 0;
     }
 
     handleInput(input){
@@ -78,7 +83,7 @@ export class RunningL extends State{
         else if (input.includes('ArrowUp') || input.includes('swipeUp')){
             this.player.setState(states.JUMPING, 0);
         }
-        if(input.includes('ArrowRight')){
+        else if(input.includes('ArrowRight') || input.includes('swipeRight')){
             this.player.setState(states.RUNNINGR, 2);
         }
     }
@@ -94,10 +99,14 @@ export class Jumping extends State{
         if(this.player.onGround()){this.player.vy -= 12;}
         this.player.frameY = 3;
         this.player.maxFrame = 3;
+        this.player.rotation = 0;
     }
 
-    handleInput(){
-        if(this.player.vy > this.player.gravity){
+    handleInput(input){
+        if(input.includes('swipeTap')){
+            this.player.setState(states.HOLDING, 0);
+        }
+        else if(this.player.vy > this.player.gravity){
             this.player.setState(states.FALLING, 0);
         }
     }
@@ -112,11 +121,65 @@ export class Falling extends State{
         this.player.frameX = 0;
         this.player.frameY = 4;
         this.player.maxFrame = 3;
+        this.player.gravity = 0.25;
+        this.player.rotation = 0;
     }
 
-    handleInput(){
-        if(this.player.onGround()){
+    handleInput(input){
+        if(input.includes('swipeTap')){
+            this.player.setState(states.HOLDING, 0);
+        }
+        else if(this.player.onGround()){
             this.player.setState(states.SITTING, 0);
         }
+    }
+}
+//Hold---------------------------------------------------------------
+export class Holding extends State{
+    constructor(player){
+        super('HOLDING');
+        this.player = player;
+    }
+    enter(){
+        this.player.frameX = 0;
+        this.player.frameY = 4;
+        this.player.maxFrame = 3;
+        this.player.vy = 0;
+        this.player.gravity = 0;
+        this.player.rotation = 0;
+    }
+
+    handleInput(input){
+            if(input.includes('ArrowDown') || input.includes('swipeDown')){
+                this.player.setState(states.FALLING, 0);
+            }
+            if(input.includes('ArrowRight') || input.includes('swipeRight')){
+                this.player.setState(states.FLYINGR, 4);
+            }
+        
+    }
+}
+//Fly Right---------------------------------------------------------------
+export class FlyingR extends State{
+    constructor(player){
+        super('FLYINGR');
+        this.player = player;
+    }
+    enter(){
+        this.player.gravity = 0;
+        this.player.frameX = 0;
+        this.player.frameY = 3;
+        this.player.maxFrame = 3;
+        this.player.rotation = 90;
+    }
+
+    handleInput(input){
+            if(input.includes('ArrowDown') || input.includes('swipeDown')){
+                this.player.setState(states.FALLING, 0);
+            }
+            if(input.includes('swipeTap')){
+                this.player.setState(states.HOLDING, 0);
+            }
+        
     }
 }
