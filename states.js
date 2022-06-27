@@ -28,7 +28,7 @@ export class Sitting extends State{
 
     handleInput(input){
         if(input.includes('ArrowRight')|| input.includes('swipeRight')){
-            this.player.setState(states.RUNNINGR, 2);
+            this.player.setState(states.RUNNINGR, 4);
         }
         else if(input.includes('ArrowLeft')|| input.includes('swipeLeft')){
             this.player.setState(states.RUNNINGL, 0);
@@ -84,7 +84,7 @@ export class RunningL extends State{
             this.player.setState(states.JUMPING, 0);
         }
         else if(input.includes('ArrowRight') || input.includes('swipeRight')){
-            this.player.setState(states.RUNNINGR, 2);
+            this.player.setState(states.RUNNINGR, 4);
         }
     }
 }
@@ -154,7 +154,7 @@ export class Holding extends State{
                 this.player.setState(states.FALLING, 0);
             }
             if(input.includes('ArrowRight') || input.includes('swipeRight')){
-                this.player.setState(states.FLYINGR, 4);
+                this.player.setState(states.FLYINGR, 8);
             }
         
     }
