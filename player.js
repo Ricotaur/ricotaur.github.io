@@ -41,6 +41,10 @@ export class Player{
         this.y += this.vy;
         if(!this.onGround()){
             this.vy += this.gravity;
+            if(this.atCeiling()){
+                this.y = 63;
+                this.vy = 1;
+            }
         }
         else{this.vy = 0;}
         //animations
@@ -52,8 +56,8 @@ export class Player{
         else{ if(!isNaN(deltaTime)){this.frameTimer += deltaTime;}}
     }
     draw(context){
-        context.strokeStyle = 'black';
-        context.strokeRect(this.x, this.y, this.width, this.height);
+        //context.strokeStyle = 'black';                                Optionale Hitbox des Spielers/Ufos
+        //context.strokeRect(this.x, this.y, this.width, this.height);
         context.save()
         context.translate(this.x + this.width / 2, this.y + this.height / 2);
         context.rotate(this.rotation * Math.PI / 180);
@@ -65,6 +69,9 @@ export class Player{
     }
     onGround(){
         return this.y >= this.game.height - this.height - this.game.groundMargin;
+    }
+    atCeiling(){
+        return this.y <= 63;
     }
     setState(state, speed){
         this.currentState = this.states[state];

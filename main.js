@@ -22,7 +22,7 @@ window.addEventListener('load', function() {
 
             this.obstacles = [];
             this.obstacleTimer = 0;
-            this.obstacleInterval = 400;
+            this.obstacleInterval = 500;
 
             this.score = 0;
         }

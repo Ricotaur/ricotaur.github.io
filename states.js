@@ -52,7 +52,7 @@ export class RunningR extends State{
     }
 
     handleInput(input){
-        if(input.includes('ArrowDown') || input.includes('swipeDown')){
+        if(input.includes('ArrowDown') || input.includes('swipeDown') || input.includes('swipeTap') || input.includes('Enter')){
             this.player.setState(states.SITTING, 0);
         }
         else if (input.includes('ArrowUp') || input.includes('swipeUp')){
@@ -77,7 +77,7 @@ export class RunningL extends State{
     }
 
     handleInput(input){
-        if(input.includes('ArrowDown') || input.includes('swipeDown')){
+        if(input.includes('ArrowDown') || input.includes('swipeDown') || input.includes('swipeTap') || input.includes('Enter')){
             this.player.setState(states.SITTING, 0);
         }
         else if (input.includes('ArrowUp') || input.includes('swipeUp')){
@@ -96,17 +96,17 @@ export class Jumping extends State{
     }
     enter(){
         this.player.frameX = 0;
-        if(this.player.onGround()){this.player.vy -= 12;}
+        this.player.vy -= 12;
         this.player.frameY = 3;
         this.player.maxFrame = 3;
         this.player.rotation = 0;
     }
 
     handleInput(input){
-        if(input.includes('swipeTap')){
+        if(input.includes('swipeTap') || input.includes('Enter')){
             this.player.setState(states.HOLDING, 0);
         }
-        if(input.includes('ArrowRight') || input.includes('swipeRight')){
+        else if(input.includes('ArrowRight') || input.includes('swipeRight')){
             this.player.setState(states.FLYINGR, 8);
         }
         else if(this.player.vy > this.player.gravity){
@@ -129,11 +129,14 @@ export class Falling extends State{
     }
 
     handleInput(input){
-        if(input.includes('swipeTap')){
+        if(input.includes('swipeTap') || input.includes('Enter')){
             this.player.setState(states.HOLDING, 0);
         }
         if(input.includes('ArrowRight') || input.includes('swipeRight')){
             this.player.setState(states.FLYINGR, 8);
+        }
+        else if (input.includes('ArrowUp') || input.includes('swipeUp')){
+            this.player.setState(states.JUMPING, 0);
         }
         else if(this.player.onGround()){
             this.player.setState(states.SITTING, 0);
@@ -148,7 +151,7 @@ export class Holding extends State{
     }
     enter(){
         this.player.frameX = 0;
-        this.player.frameY = 4;
+        this.player.frameY = 0;
         this.player.maxFrame = 3;
         this.player.vy = 0;
         this.player.gravity = 0;
@@ -159,8 +162,11 @@ export class Holding extends State{
             if(input.includes('ArrowDown') || input.includes('swipeDown')){
                 this.player.setState(states.FALLING, 0);
             }
-            if(input.includes('ArrowRight') || input.includes('swipeRight')){
+            else if(input.includes('ArrowRight') || input.includes('swipeRight')){
                 this.player.setState(states.FLYINGR, 8);
+            }
+            else if (input.includes('ArrowUp') || input.includes('swipeUp')){
+                this.player.setState(states.JUMPING, 0);
             }
         
     }
@@ -185,8 +191,11 @@ export class FlyingR extends State{
             if(input.includes('ArrowDown') || input.includes('swipeDown')){
                 this.player.setState(states.FALLING, 0);
             }
-            if(input.includes('swipeTap')){
+            else if(input.includes('swipeTap') || input.includes('Enter')){
                 this.player.setState(states.HOLDING, 0);
+            }
+            else if (input.includes('ArrowUp') || input.includes('swipeUp')){
+                this.player.setState(states.JUMPING, 0);
             }
         
     }
