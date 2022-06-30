@@ -1,7 +1,7 @@
 import{Player} from './player.js';
 import{Input} from './input.js';
 import{Background} from './background.js';
-import{FlyingObstacle, GroundObstacle} from './obstacles.js';
+import{FlyingObstacle, GroundObstacle, MiddleObstacle} from './obstacles.js';
 
 window.addEventListener('load', function() {
     const canvas = document.getElementById('canvas1');
@@ -22,7 +22,7 @@ window.addEventListener('load', function() {
 
             this.obstacles = [];
             this.obstacleTimer = 0;
-            this.obstacleInterval = 3000;
+            this.obstacleInterval = 400;
 
             this.score = 0;
         }
@@ -51,11 +51,14 @@ window.addEventListener('load', function() {
             });
         }
         addObstacle(){
-            if(this.speed > 0 && Math.random() < 0.5){
+            if(this.speed > 0 && Math.random() < 0.3){
                 this.obstacles.push(new GroundObstacle(this));
             }
-            else if(this.speed > 0 && Math.random() > 0.5){
-                this.obstacles.push(new FlyingObstacle(this));
+            else if(this.speed > 0 && Math.random() > 0.3){
+                if (Math.random() > 0.2) {
+                    this.obstacles.push(new MiddleObstacle(this));
+                }
+                else{this.obstacles.push(new FlyingObstacle(this));}
             }
          
         }

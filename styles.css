@@ -12,7 +12,7 @@
     max-width: 100%;
     max-height: 100%;
 }
-#player, #layer1, #layer2, #layer3, #layer4, #layer5, #ceil_Obst, #ground_Obst{
+#player, #layer1, #layer2, #layer3, #layer4, #layer5, #ceil_Obst, #ground_Obst, #middle_Obst{
     display: none;
 }
 #resetText{

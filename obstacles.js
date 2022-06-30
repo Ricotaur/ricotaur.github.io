@@ -59,5 +59,18 @@ export class GroundObstacle extends Obstacle{
         this.maxFrame = 3;
         this.image = document.getElementById('ground_Obst');
     }
-
+}
+export class MiddleObstacle extends Obstacle{
+    constructor(game){
+        super();
+        this.game = game;
+        this.width = 130;
+        this.height = 60;
+        this.x = this.game.width;
+        this.y = Math.random() * this.game.height * 0.6 + 63;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.maxFrame = 3;
+        this.image = document.getElementById('middle_Obst');
+    }
 }
