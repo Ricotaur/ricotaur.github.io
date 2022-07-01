@@ -26,6 +26,7 @@ export class Player{
         this.states = [new Sitting(this), new RunningR(this), new Jumping(this), new Falling(this), new RunningL(this), new Holding(this), new FlyingR(this)];
         this.currentState = this.states[0];
         this.currentState.enter();
+        this.loseAudio = new Audio('./sounds/lose_sound_1_0.wav');
     }
     update(input, deltaTime){
         this.checkCollision();
@@ -87,6 +88,7 @@ export class Player{
                 obstacle.y + obstacle.height > this.y 
             ){
                 document.getElementById("resetText").innerHTML = "You crashed, sadly. Game will reload";
+                this.loseAudio.play();
                 this.game.speed = 0;
                 setTimeout(() => { window.location.reload(); }, 2000);
             }

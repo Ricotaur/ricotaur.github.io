@@ -100,6 +100,9 @@ export class Jumping extends State{
         this.player.frameY = 3;
         this.player.maxFrame = 3;
         this.player.rotation = 0;
+
+        var jumpAudio = new Audio('./sounds/foom_0.wav');
+        jumpAudio.play();
     }
 
     handleInput(input){
@@ -185,6 +188,9 @@ export class FlyingR extends State{
         this.player.vy = 0;
         this.player.gravity = 0;
         this.player.rotation = 90;
+
+        var jumpAudio = new Audio('./sounds/foom_0.wav');
+        jumpAudio.play();
     }
 
     handleInput(input){
